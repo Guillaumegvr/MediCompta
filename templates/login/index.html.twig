@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{# ... #}
+
+{% block body %}
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div id="login-form">
+    <form action="{{ path('app_login_index') }}" method="post" >
+        <div class="form-group">
+            <label class="form-label" for="username">Adresse mail :</label>
+            <input type="email" class="form-control" id="username" name="_username" aria-describedby="emailHelp" placeholder="Saisissez votre adresse mail" value="{{ last_username }}" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="password">Mot de passe :</label>
+            <input type="password" class="form-control" id="password" placeholder="Saisissez votre mot de passe" name="_password" required>
+        </div>
+        <div class="form-check m-3">
+            <input type="checkbox" class="form-check-input" id="SeSouvenirDeMoi">
+            <label class="form-check-label" for="SeSouvenirDeMoi">Se Souvenir de moi</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+        <button type="submit" class="btn btn-primary">Créer un compte</button>
+    </form>
+    </div>
+
+{% endblock %}
