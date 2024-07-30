@@ -7,6 +7,8 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    <div class="d-flex flex-column justify-content-center align-items-center">
+    <h3 class="m-2 mt-5">Veuillez vous connecter</h3>
     <div id="login-form">
     <form action="{{ path('app_login_index') }}" method="post" >
         <div class="form-group">
@@ -22,8 +24,9 @@
             <label class="form-check-label" for="SeSouvenirDeMoi">Se Souvenir de moi</label>
         </div>
         <button type="submit" class="btn btn-primary">Se connecter</button>
-        <button type="submit" class="btn btn-primary">Créer un compte</button>
     </form>
+        <a href ="{{ path('app_create_user') }}" class="btn btn-outline-secondary mt-5">Créer un compte</a>
+    </div>
     </div>
 
 {% endblock %}

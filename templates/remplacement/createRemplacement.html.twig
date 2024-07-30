@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ parent() }} | Ajout d'un remplacement{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+<div id="login-form">
+    <h3>Ajouter un remplacement :</h3>
+
+    <div class="formulaire">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <a href ="{{ path('app_create_medecin') }}" class="btn btn-outline-secondary mt-1">Le médecin n'est pas présent dans la liste, cliquez ici pour l'ajouter</a>
+        <button type="submit" class="btn btn-primary d-flex flex-end mt-3" >Ajouter le remplacement</button>
+        {{ form_end(form) }}
+
+    </div>
+
+
+{% endblock %}

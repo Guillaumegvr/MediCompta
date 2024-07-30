@@ -12,7 +12,7 @@
     font-weight: bold;
 }
 
-#login-form{
+#login-form, #edit-form{
     width: 33%;
     height: auto;
     display: flex;
@@ -20,7 +20,7 @@
     margin: 3%;
 }
 
-button{
+button {
     background-color: #2E8486 !important;
     border-color: #2E8486 !important;
 }
@@ -28,4 +28,13 @@ button{
 button:hover{
     background-color: #255e5f !important;
     border-color: #255e5f !important;
+}
+
+h3{
+    color: #2E8486 !important;
+}
+
+#calendrier{
+    width: 80%;
+    align-self: center;
 }

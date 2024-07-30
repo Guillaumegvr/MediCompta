@@ -1,0 +1,101 @@
+{% extends '/base.html.twig' %}
+{% block title %}MediCompta{% endblock %}
+
+{% block body %}
+    <a class="m-5 align-self-center" href="{{ path('app_remplacement_create') }}">
+        <button class="btn btn-primary">Ajouter un remplacement</button>
+    </a>
+
+    <div class="m-5" id="calendrier"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarEl = document.getElementById('calendrier');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                editable: true,
+                eventSources: [
+                    {
+                        url: "{{ path('fc_load_events') }}",
+                        method: 'POST',
+                        extraParams: {
+                            filters: JSON.stringify({})
+                        },
+                        failure: () => {
+                            alert('Une erreur est survenue');
+                        },
+                    },
+                ],
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                locale: 'fr',
+                views: {
+                    dayGridMonth: {
+                        titleFormat: { year: 'numeric', month: 'long' }
+                    },
+                    timeGridWeek: {
+                        titleFormat: { year: 'numeric', month: 'long', day: 'numeric' }
+                    },
+                    timeGridDay: {
+                        titleFormat: { year: 'numeric', month: 'long', day: 'numeric' }
+                    }
+                },
+                buttonText: {
+                    today: 'Aujourd\'hui',
+                    month: 'Mois',
+                    week: 'Semaine',
+                    day: 'Jour',
+                    list: 'Liste'
+                },
+                events: {{ data|raw }},
+                eventResizableFromStart: true,
+            });
+
+            calendar.on('eventChange', (e) => {
+                let url = `/api/${e.event.id}/edit`;
+                let donnees = {
+                    "title": e.event.title,
+                    "start": e.event.start.toISOString(), // Assurez-vous que le format est correct
+                    "end": e.event.end.toISOString(), // Assurez-vous que le format est correct
+                };
+
+                const headers = new Headers();
+                headers.append("Content-Type", "application/json");
+
+                const requestOptions = {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(donnees)
+                };
+
+                fetch(url, requestOptions)
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(`Erreur réseau : ${response.status} - ${text}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        console.log('Succès:', result);
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error.message);
+                        console.error('Stack trace:', error.stack);
+                    });
+            });
+
+            calendar.render();
+        });
+
+    </script>
+{% endblock %}
