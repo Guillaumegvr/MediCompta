@@ -39,15 +39,23 @@ class MedecinType extends AbstractType
             ])
             ->add('adresseMail', EmailType::class, [
                 'label' => 'Adresse mail :',
+                'required' => false,
             ])
             ->add('numeroTel', IntegerType::class, [
-                'label' => 'numéro de téléphone : '
+                'label' => 'Numéro de téléphone : ',
+                   'required' => false,
             ])
             ->add('logiciel', TextType::class, [
-                'label' => 'logiciel :',
+                'label' => 'Logiciel :',
+                'required' => false,
             ])
             ->add('secretaire', CheckboxType::class, [
-                'label' => 'Cochez si le médecin dispose d\'un secrétariat:',
+                'label' => 'Cochez si le médecin dispose d\'un secrétariat',
+                'required' => false,
+            ])
+            ->add('retrocession', IntegerType::class, [
+                'label' => 'Pourcentage de rétrocession : ',
+                'required' => true,
             ])
         ;
     }

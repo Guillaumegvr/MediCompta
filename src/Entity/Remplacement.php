@@ -30,16 +30,24 @@ class Remplacement
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Assert\Length(
-        max: 15,
-        maxMessage: "Ne pas dépasser 15 chiffres"
-    )]
-    private ?float $chiffreAffaire = null;
-
     #[ORM\ManyToOne(inversedBy: 'remplacements')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Medecin $medecin = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Assert\Length(
+        max: 7,
+        maxMessage: "Le montant indiqué ne peux pas dépasser 7 chiffres"
+    )]
+    private ?float $chiffreRealise = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Assert\Length(
+        max: 7,
+        maxMessage: "Le montant indiqué ne peux pas dépasser 7 chiffres"
+    )]
+    private ?float $paiementEffectue = null;
+
 
 
     public function getId(): ?int
@@ -95,17 +103,6 @@ class Remplacement
         return $this;
     }
 
-    public function getChiffreAffaire(): ?float
-    {
-        return $this->chiffreAffaire;
-    }
-
-    public function setChiffreAffaire(?float $chiffreAffaire): static
-    {
-        $this->chiffreAffaire = $chiffreAffaire;
-
-        return $this;
-    }
 
     public function getMedecin(): ?Medecin
     {
@@ -119,7 +116,28 @@ class Remplacement
         return $this;
     }
 
+    public function getChiffreRealise(): ?float
+    {
+        return $this->chiffreRealise;
+    }
 
+    public function setChiffreRealise(?float $chiffreRealise): static
+    {
+        $this->chiffreRealise = $chiffreRealise;
 
+        return $this;
+    }
+
+    public function getPaiementEffectue(): ?float
+    {
+        return $this->paiementEffectue;
+    }
+
+    public function setPaiementEffectue(?float $paiementEffectue): static
+    {
+        $this->paiementEffectue = $paiementEffectue;
+
+        return $this;
+    }
 
 }

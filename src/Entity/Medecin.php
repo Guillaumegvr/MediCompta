@@ -99,6 +99,16 @@ class Medecin
     #[ORM\OneToMany(targetEntity: Remplacement::class, mappedBy: 'medecin')]
     private Collection $remplacements;
 
+    #[ORM\Column]
+    #[Assert\NotBlank(message: "Le pourcentage de rétrocession est obligatoire.")]
+    #[Assert\Length(min: 1,
+        max: 100,
+        minMessage: "Veuillez compléter avec un chiffre compris entre 0 et 100",
+        maxMessage: "Veuillez compléter avec un chiffre compris entre 0 et 100"
+    )]
+
+    private ?int $retrocession = null;
+
     public function __construct()
     {
         $this->remplacements = new ArrayCollection();
@@ -255,6 +265,18 @@ class Medecin
                 $remplacement->setMedecin(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRetrocession(): ?int
+    {
+        return $this->retrocession;
+    }
+
+    public function setRetrocession(int $retrocession): static
+    {
+        $this->retrocession = $retrocession;
 
         return $this;
     }

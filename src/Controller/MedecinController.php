@@ -30,7 +30,7 @@ class MedecinController extends AbstractController
 
 
             $this -> addFlash("success", 'Medecin ajouté avec succès');
-            return $this->redirectToRoute('app_create_remplacement');
+            return $this->redirectToRoute('app_remplacement_create');
         }
 
         return $this->render('medecin/createMedecin.html.twig', [

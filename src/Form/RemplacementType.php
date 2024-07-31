@@ -32,11 +32,8 @@ class RemplacementType extends AbstractType
                 },
                 'query_builder' => function (MedecinRepository $medecinRepository) {
                     return $medecinRepository->createQueryBuilder('c')
-                        ->orderBy('c.nom', 'ASC'); // Assurez-vous que 'nom' est le bon champ
+                        ->orderBy('c.nom', 'ASC');
                 },
-            ])
-            ->add('chiffreAffaire', NumberType::class, [
-                'label' => 'Chiffre d\'Affaire :',
             ]);
     }
 

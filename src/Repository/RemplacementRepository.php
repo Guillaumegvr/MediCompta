@@ -26,6 +26,43 @@ class RemplacementRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findRemplacementsAvecSommesDesc(): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('r');
+
+        // Joindre la table 'medecin' pour récupérer les données du médecin
+        $queryBuilder->join('r.medecin', 'm')
+            ->addSelect('m');
+
+        // Ajouter la condition pour filtrer les remplacements avec paiementEffectué > 0
+        $queryBuilder->where('r.paiementEffectue IS NULL OR r.paiementEffectue <= 0');
+
+        // Trier les résultats par ordre décroissant
+        $queryBuilder->orderBy('r.dateCreation', 'DESC');
+
+        // Exécuter la requête et retourner les résultats
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
+    public function findRetrocession(): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('r');
+
+        // Joindre la table 'medecin' pour récupérer les données du médecin
+        $queryBuilder->join('r.medecin', 'm')
+            ->addSelect('m');
+
+        // Ajouter la condition pour filtrer les remplacements avec paiementEffectué > 0
+        $queryBuilder->where('r.paiementEffectue IS NULL OR r.paiementEffectue <= 0');
+
+        // Trier les résultats par ordre décroissant
+        $queryBuilder->orderBy('r.dateCreation', 'DESC');
+
+        // Exécuter la requête et retourner les résultats
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
     //    /**
     //     * @return Remplacement[] Returns an array of Remplacement objects
     //     */

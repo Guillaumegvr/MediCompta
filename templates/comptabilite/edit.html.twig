@@ -1,39 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Comptabilité{% endblock %}
+
+{% block title %}{{ parent() }} | Inscription{% endblock %}
 
 {% block body %}
-    <h3 class="m-3">Liste des remplacements en attente de paiement:</h3>
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
-    <div class="m-5 d-flex justify-content-center">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Médecin remplacé</th>
-                <th scope="col">Date de début</th>
-                <th scope="col">Date de fin</th>
-                <th scope="col">Bénéfices</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for remplacement in remplacements %}
-                <tr>
-                    <td>{{ remplacement.medecin.nom }}</td>
-                    <td>{{ remplacement.beginAt | date('Y-m-d') }}</td>
-                    <td>{{ remplacement.endAt | date('Y-m-d') }}</td>
-                    <td></td>
-                    <td>
-                        <a href="{{ path('app_remplacement_edit', {'id': remplacement.id }) }}" class="btn btn-primary" style="background-color:#2E8486" aria-label="Modifier le remplacement">Ajouter mes bénéfices</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <div id="login-form">
+        <h3>Ajouter un medecin :</h3>
 
-    <div class="m-3">
-        <a href="{{ path('app_remplacement_create') }}" class="btn btn-secondary" aria-label="Créer un nouveau remplacement">Créer un nouveau remplacement</a>
+        <div class="formulaire">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary" >Ajouter</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 
 {% endblock %}
+

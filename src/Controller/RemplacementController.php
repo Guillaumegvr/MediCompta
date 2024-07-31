@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Remplacement;
-use App\Entity\User;
 use App\Form\RemplacementType;
-use App\Form\UserType;
 use App\Repository\RemplacementRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/remplacement')]
@@ -46,7 +43,7 @@ class RemplacementController extends AbstractController
             $entityManager->flush();
 
             $this -> addFlash("success", 'Remplacement ajouté avec succès');
-            return $this->redirectToRoute('app_main_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_remplacement_liste', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('remplacement/createRemplacement.html.twig', [
@@ -75,8 +72,10 @@ class RemplacementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this -> addFlash("success", 'Modification effectuée');
             return $this->redirectToRoute('app_remplacement_liste', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->render('remplacement/edit.html.twig', [
             'remplacement' => $booking,
