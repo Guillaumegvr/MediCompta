@@ -17,11 +17,11 @@ class MedecinType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom', TextType::class, [
+            ->add('nom', TextType::class, [
                 'label' => 'Nom :',
                 'required' => true,
             ])
-            ->add('Prenom', TextType::class, [
+            ->add('prenom', TextType::class, [
                 'label' => 'Prénom :',
                 'required' => true,
              ])
@@ -41,7 +41,7 @@ class MedecinType extends AbstractType
                 'label' => 'Adresse mail :',
                 'required' => false,
             ])
-            ->add('numeroTel', IntegerType::class, [
+            ->add('numeroTelephone', IntegerType::class, [
                 'label' => 'Numéro de téléphone : ',
                    'required' => false,
             ])

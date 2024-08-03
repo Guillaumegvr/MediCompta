@@ -1,8 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Accueil{% endblock %}
-
+{% block title %}{{ parent() }} | Tableau de bord{% endblock %}
 
 {% block body %}
+    <div class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-4">Votre tableau de bord :</h3>
+                <div class="d-flex flex-wrap justify-content-between">
+                    <div class="card d-flex justify-content-center align-items-center p-3 mb-3" style="width: 18rem;">
+                        <h3>{{ beneficeAnnuel }} &#x20AC;</h3>
+                        <div class="card-body">
+                            <p class="card-text">De CA cette année</p>
+                        </div>
+                    </div>
+                    <div class="card d-flex justify-content-center align-items-center p-3 mb-3" style="width: 18rem;">
+                        <h3>{{ beneficeMensuel }} &#x20AC;</h3>
+                        <div class="card-body">
+                            <p class="card-text">De CA ce mois-ci</p>
+                        </div>
+                    </div>
+                    <div class="card d-flex justify-content-center align-items-center p-3 mb-3" style="width: 18rem;">
+                        <h3>{{ paiementEnAttente }} &#x20AC;</h3>
+                        <div class="card-body">
+                            <p class="card-text">En attente de paiement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row mb-5 mt-5">
+            <div class="col-12">
+                <h3 class="mb-3">Micro BNC :</h3>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pourcentageMicroBNC }}%; background-color:#2E8486" aria-valuenow="{{ pourcentageMicroBNC }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ pourcentageMicroBNC | number_format }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <h3 class="mb-3">Remplacements à venir :</h3>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Médecin remplacé</th>
+                        <th scope="col">Période</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for remplacement in remplacementsDuMois %}
+                        <tr>
+                            <td>{{ remplacement.medecin.nom }} {{ remplacement.medecin.prenom }}</td>
+                            <td>Du {{ remplacement.dateDebut | date('d-m-Y') }} au {{ remplacement.dateFin | date('d-m-Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

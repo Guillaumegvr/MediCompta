@@ -18,20 +18,20 @@ class Remplacement
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $beginAt = null;
+    private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $endAt = null;
+    private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'remplacements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'remplacements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Medecin $medecin = null;
 
     #[ORM\Column(nullable: true)]
@@ -39,14 +39,24 @@ class Remplacement
         max: 7,
         maxMessage: "Le montant indiqué ne peux pas dépasser 7 chiffres"
     )]
-    private ?float $chiffreRealise = null;
+    private ?float $chiffreRealiseParRemplacement = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Length(
         max: 7,
         maxMessage: "Le montant indiqué ne peux pas dépasser 7 chiffres"
     )]
-    private ?float $paiementEffectue = null;
+    private ?float $retrocession = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $datePaiement = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Assert\Length(
+        max: 7,
+        maxMessage: "Le montant indiqué ne peux pas dépasser 7 chiffres"
+    )]
+    private ?float $salaireVerse = null;
 
 
 
@@ -55,26 +65,26 @@ class Remplacement
         return $this->id;
     }
 
-    public function getBeginAt(): ?\DateTimeInterface
+    public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->beginAt;
+        return $this->dateDebut;
     }
 
-    public function setBeginAt(\DateTimeInterface $beginAt): static
+    public function setDateDebut(\DateTimeInterface $dateDebut): static
     {
-        $this->beginAt = $beginAt;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeInterface
+    public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->endAt;
+        return $this->dateFin;
     }
 
-    public function setEndAt(?\DateTimeInterface $endAt): static
+    public function setDateFin(?\DateTimeInterface $dateFin): static
     {
-        $this->endAt = $endAt;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
@@ -116,26 +126,50 @@ class Remplacement
         return $this;
     }
 
-    public function getChiffreRealise(): ?float
+    public function getChiffreRealiseParRemplacement(): ?float
     {
-        return $this->chiffreRealise;
+        return $this->chiffreRealiseParRemplacement;
     }
 
-    public function setChiffreRealise(?float $chiffreRealise): static
+    public function setChiffreRealiseParRemplacement(?float $chiffreRealiseParRemplacement): static
     {
-        $this->chiffreRealise = $chiffreRealise;
+        $this->chiffreRealiseParRemplacement = $chiffreRealiseParRemplacement;
 
         return $this;
     }
 
-    public function getPaiementEffectue(): ?float
+    public function getRetrocession(): ?float
     {
-        return $this->paiementEffectue;
+        return $this->retrocession;
     }
 
-    public function setPaiementEffectue(?float $paiementEffectue): static
+    public function setRetrocession(?float $retrocession): static
     {
-        $this->paiementEffectue = $paiementEffectue;
+        $this->retrocession = $retrocession;
+
+        return $this;
+    }
+
+    public function getDatePaiement(): ?\DateTimeInterface
+    {
+        return $this->datePaiement;
+    }
+
+    public function setDatePaiement(?\DateTimeInterface $datePaiement): static
+    {
+        $this->datePaiement = $datePaiement;
+
+        return $this;
+    }
+
+    public function getSalaireVerse(): ?float
+    {
+        return $this->salaireVerse;
+    }
+
+    public function setSalaireVerse(?float $salaireVerse): static
+    {
+        $this->salaireVerse = $salaireVerse;
 
         return $this;
     }

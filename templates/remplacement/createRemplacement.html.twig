@@ -12,9 +12,9 @@
     <div class="formulaire">
         {{ form_start(form) }}
         {{ form_row(form.medecin) }}
-        <a href ="{{ path('app_create_medecin') }}" class="btn btn-outline-secondary mt-1 mb-3">Le médecin n'est pas présent dans la liste, cliquez ici pour l'ajouter</a>
-        {{ form_row(form.beginAt) }}
-        {{ form_row(form.endAt) }}
+        <a href ="{{ path('app_medecin_create') }}" class="btn btn-outline-secondary mt-1 mb-3">Le médecin n'est pas présent dans la liste, cliquez ici pour l'ajouter</a>
+        {{ form_row(form.dateDebut) }}
+        {{ form_row(form.dateFin) }}
         <button type="submit" class="btn btn-primary d-flex flex-end mt-3" >Ajouter le remplacement</button>
         {{ form_end(form) }}
 

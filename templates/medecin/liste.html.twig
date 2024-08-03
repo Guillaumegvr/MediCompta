@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Comptabilité{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h3 class="m-3">Liste des Médecins</h3>
+
+        <div class="mb-4">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_widget(form) }}
+            </div>
+            <button class="btn btn-primary">Rechercher</button>
+            {{ form_end(form) }}
+        </div>
+
+        {% if form.vars.submitted == true %}
+            <a href="{{ path('app_medecin_liste') }}" class="btn btn-primary" style="background-color:#2E8486; border-color:#2E8486;" aria-label="Annuler">Revenir à la liste des médecins</a>
+        {% endif %}
+
+        <div class="d-flex flex-wrap justify-content-evenly mt-4">
+            {% for medecin in medecins %}
+                <div class="card bg-light mb-4 text-center border-secondary" style="width: 16rem; margin: 1rem;">
+                    <img id="logoUser" class="card-img-top" src="{{ asset('image/logoUser.png') }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ medecin.nom }} {{ medecin.prenom }}</h5>
+                        <p class="card-text">{{ medecin.ville }}</p>
+                        <p class="card-text">{{ medecin.codePostal }}</p>
+                        <a href="{{ path('app_medecin_edit', {'id': medecin.id }) }}" class="btn btn-primary" style="background-color:#2E8486; border-color:#2E8486" aria-label="Modifier le remplacement">Afficher les détails</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+

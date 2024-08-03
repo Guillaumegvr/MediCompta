@@ -7,13 +7,25 @@
     mix-blend-mode: multiply;
 }
 
+
+
+
+#logoUser{
+    background-color: #aac5c5;
+    border-radius: 50%;
+    margin: 5%;
+    width: 60%;
+    height: 60%;
+    align-self: center;
+}
+
 #activeLink{
     color: #2E8486;
     font-weight: bold;
 }
 
 #login-form, #edit-form{
-    width: 33%;
+    width: 50%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -34,7 +46,37 @@ h3{
     color: #2E8486 !important;
 }
 
-#calendrier{
-    width: 80%;
-    align-self: center;
+#calendrier {
+    border-radius: 5px;
+    color: #2E8486;
+    padding: 20px; /* Espacement intérieur */
+    width: 80%; /* Largeur */
+    text-align: center; /* Alignement du texte */
+}
+
+.fc, .fc *, .fc ::after, .fc ::before  {
+    text-decoration: none; /* Supprime la sous-ligne des liens */
+    color: #6c757d;
+}
+
+
+
+.fc-event-title, .fc-event-time{
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.table-container {
+    max-width: 90%; /* Largeur maximale du tableau */
+    width: 100%; /* Prend la largeur disponible dans le conteneur parent */
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+}
+
+/* Optionnel : Ajustez l'espacement et la présentation du tableau */
+.table {
+    margin-bottom: 0; /* Réduit l'espacement sous le tableau */
+}
+
+/* Assurez-vous que les boutons sont également centrés */
+.text-center {
+    text-align: center;
 }

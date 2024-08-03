@@ -24,8 +24,8 @@ class BookingController extends AbstractController
             $remplacements[] = [
                 'id' => $event->getId(),
                 'title' => $event->getMedecin()->getNom(),
-                'start' => $event->getBeginAt()->format('Y-m-d H:i:s'),
-                'end' => $event->getEndAt()->format('Y-m-d H:i:s'),
+                'start' => $event->getDateDebut()->format('Y-m-d H:i:s'),
+                'end' => $event->getDateFin()->format('Y-m-d H:i:s'),
             ];
         }
         $data=json_encode($remplacements);

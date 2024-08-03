@@ -30,7 +30,7 @@ class CalendarSubscriber implements EventSubscriberInterface
 
         $remplacements = $this->remplacementRepository
             ->createQueryBuilder('remplacement')
-            ->where('remplacement.beginAt BETWEEN :start and :end OR remplacement.endAt BETWEEN :start and :end')
+            ->where('remplacement.dateDebut BETWEEN :start and :end OR remplacement.dateFin BETWEEN :start and :end')
             ->setParameter('start', $start->format('Y-m-d H:i:s'))
             ->setParameter('end', $end->format('Y-m-d H:i:s'))
             ->getQuery()

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Liste des Charges{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h3 class="m-3">Ajouter et consulter la liste de vos charges :</h3>
+
+        <div class="m-3">
+            <a href="{{ path('app_comptabilite_charge_create') }}" class="btn btn-outline-secondary" aria-label="Créer une nouvelle charge">Ajouter une charge</a>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            <div class="table-container">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Libelle</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for charge in charges %}
+                        <tr>
+                            <td>{{ charge.libelle }}</td>
+                            <td>{{ charge.montant }}</td>
+                            <td>
+                                <a href="#" class="btn btn-primary" style="background-color:#2E8486; border-color:#2E8486;"
+                                   onclick="event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir supprimer cette charge ?')) {
+                                           fetch('{{ path('app_comptabilite_charge_delete', {'id': charge.id }) }}', {
+                                           method: 'POST',
+                                           headers: {
+                                           'Content-Type': 'application/x-www-form-urlencoded'
+                                           },
+                                           body: '_token={{ csrf_token('delete' ~ charge.id) }}'
+                                           }).then(response => {
+                                           if(response.ok) {
+                                           location.reload(); // Recharge la page après suppression réussie
+                                           } else {
+                                           alert('La suppression a échoué.');
+                                           }
+                                           });
+                                           }">
+                                    Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

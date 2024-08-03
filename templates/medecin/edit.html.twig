@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} | Medecin détails{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+    <h3 class="m-3">{{ medecin.nom}} {{ medecin.prenom}} :</h3>
+
+    <div id="login-form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary"> Valider les modifications </button>
+        {{ form_end(form) }}
+        <a href="{{ path('app_medecin_liste')}}" class="btn btn-outline-secondary mt-3" >Revenir à la liste</a>
+    </div>
+
+
+{% endblock %}
+

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Bilan{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h3 class="m-3">Historique des remplacements</h3>
+
+        <div class="d-flex flex-wrap flex-lg-row justify-content-evenly mb-4">
+            <div class="card d-flex justify-content-center align-items-center p-3 mb-3" style="width: 18rem;">
+                {% if form.vars.submitted == false %}
+                    <h3> {{ beneficeAnnuel }} &#x20AC;</h3>
+                    <div class="card-body">
+                        <p class="card-text">De CA sur l'année en cours</p>
+                    </div>
+                {% else %}
+                    <h3> {{ beneficesPeriodeSelectionnee }} &#x20AC;</h3>
+                    <div class="card-body">
+                        <p class="card-text">De CA sur la période sélectionnée</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card d-flex justify-content-center align-items-center p-3 mb-3" style="width: 18rem;">
+                {% if form.vars.submitted == false %}
+                    <h3> {{ salaireAnnuel }} &#x20AC;</h3>
+                    <div class="card-body">
+                        <p class="card-text">De salaire versé sur l'année en cours</p>
+                    </div>
+                {% else %}
+                    <h3> {{ salairePeriodeSelectionnee }} &#x20AC;</h3>
+                    <div class="card-body">
+                        <p class="card-text">De salaire versé sur la période sélectionnée</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card d-flex justify-content-center align-items-center p-3 mb-3" style="width: 18rem;">
+                {% if form.vars.submitted == false %}
+                    <h3> {{ chargesAnnuelles }} &#x20AC;</h3>
+                    <div class="card-body">
+                        <p class="card-text">De charges sur l'année en cours</p>
+                    </div>
+                {% else %}
+                    <h3> {{ chargesPeriodeSelectionnee }} &#x20AC;</h3>
+                    <div class="card-body">
+                        <p class="card-text">De charges sur la période sélectionnée</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <div class="table-container">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Médecin remplacé</th>
+                        {{ form_start(form) }}
+                        <th>
+                            <div class="d-flex align-items-center">Du:
+                                {{ form_widget(form.dateDebut) }}
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center">Au:
+                                {{ form_widget(form.dateFin) }}
+                            </div>
+                        </th>
+                        <th>Bénéfices</th>
+                        <th>Salaire versé</th>
+                        <th>
+                            <button class="btn btn-primary">Rechercher</button>
+                            {% if form.vars.submitted == true %}
+                                <a href="{{ path('app_comptabilite_bilan') }}" class="btn btn-primary" style="background-color:#2E8486; border-color:#2E8486" aria-label="Annuler">Annuler</a>
+                                <a href="{{ path('app_comptabilite_convert', {'dateDebut': form.dateDebut.vars.value|date('Y-m-d'), 'dateFin': form.dateFin.vars.value|date('Y-m-d')}) }}" class="btn btn-primary" style="background-color:#2E8486; border-color:#2E8486" aria-label="Télécharger">Télécharger</a>
+                            {% endif %}
+                            {{ form_end(form) }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for remplacement in remplacements %}
+                        <tr>
+                            <td>{{ remplacement.medecin.nom }} {{ remplacement.medecin.prenom }}</td>
+                            <td>{{ remplacement.dateDebut | date('d-m-Y') }}</td>
+                            <td>{{ remplacement.dateFin | date('d-m-Y') }}</td>
+                            <td>{{ remplacement.retrocession }}</td>
+                            <td>{{ remplacement.salaireVerse }}</td>
+                            <td>
+                                <a href="{{ path('app_comptabilite_edit', {'id': remplacement.id }) }}" class="btn btn-primary" style="background-color:#2E8486 ; border-color:#2E8486" aria-label="Mettre à jour">Mettre à jour</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

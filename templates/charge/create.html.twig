@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} | Ajouter une charge{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+    <h3> Ajouter une charge :</h3>
+
+    <div id="login-form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary"> Ajouter </button>
+        {{ form_end(form) }}
+        <a href="{{ path('app_comptabilite_charge_liste') }}" class="btn btn-outline-secondary mt-3" >Revenir à la liste des charges</a>
+    </div>
+
+
+{% endblock %}
+

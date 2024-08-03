@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: "Le nom doit comporter au minimum 2 caractères.",
         maxMessage: "Le nom ne peut excéder 50 caractères."
     )]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "Le prénom est obligatoire.")]
@@ -96,28 +96,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull(message: "La date de création est obligatoire.")]
     private ?\DateTimeInterface $dateCreation = null;
 
-    #[ORM\Column(length: 3)]
-    #[Assert\NotBlank(message: "Le numéro de département est obligatoire.")]
-    #[Assert\Length(max: 3,
-        maxMessage: "Le numéro de département ne doit pas comporter plus de 3 numéros",
-    )]
-    #[Assert\Range(
-        notInRangeMessage: 'Vous devez saisir un nombre compris entre {{ min }} et {{ max }}',
-        min: 1,
-        max: 976,
-    )]
-    #[Assert\Positive]
-    private ?int $no_departement = null;
+
+    #[ORM\OneToMany(targetEntity: Remplacement::class,  mappedBy: 'user', orphanRemoval: true,)]
+    private Collection $remplacements;
+
+    #[ORM\Column]
+    private ?int $pourcentageSalaireVerse = null;
 
     /**
-     * @var Collection<int, Remplacement>
+     * @var Collection<int, Charges>
      */
-    #[ORM\OneToMany(targetEntity: Remplacement::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $remplacements;
+    #[ORM\OneToMany(targetEntity: Charges::class, mappedBy: 'User')]
+    private Collection $charges;
 
     public function __construct()
     {
         $this->remplacements = new ArrayCollection();
+        $this->charges = new ArrayCollection();
     }
 
 
@@ -198,12 +193,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(string $nom): static
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -268,17 +263,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNoDepartement(): ?int
-    {
-        return $this->no_departement;
-    }
-
-    public function setNoDepartement(int $no_departement): static
-    {
-        $this->no_departement = $no_departement;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Remplacement>
@@ -304,6 +288,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($remplacement->getUser() === $this) {
                 $remplacement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPourcentageSalaireVerse(): ?int
+    {
+        return $this->pourcentageSalaireVerse;
+    }
+
+    public function setPourcentageSalaireVerse(int $pourcentageSalaireVerse): static
+    {
+        $this->pourcentageSalaireVerse = $pourcentageSalaireVerse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Charges>
+     */
+    public function getCharges(): Collection
+    {
+        return $this->charges;
+    }
+
+    public function addCharge(Charges $charge): static
+    {
+        if (!$this->charges->contains($charge)) {
+            $this->charges->add($charge);
+            $charge->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharge(Charges $charge): static
+    {
+        if ($this->charges->removeElement($charge)) {
+            // set the owning side to null (unless already changed)
+            if ($charge->getUser() === $this) {
+                $charge->setUser(null);
             }
         }
 

@@ -59,8 +59,8 @@ class ApiController extends AbstractController
                 return new JsonResponse(['error' => 'Format de date invalide'], 400);
             }
 
-            $remplacement->setBeginAt($beginAt);
-            $remplacement->setEndAt($endAt);
+            $remplacement->setDateDebut($beginAt);
+            $remplacement->setDateFin($endAt);
             $remplacement->setDateCreation(new DateTime());
 
             $entityManager->persist($remplacement);

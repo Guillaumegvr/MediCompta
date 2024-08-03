@@ -24,7 +24,7 @@ class UserType extends AbstractType
                 'label' => 'Mot de passe :',
                 'required' => true,
             ])
-            ->add('Nom', TextType::class, [
+            ->add('nom', TextType::class, [
                 'label' => 'Nom :',
                 'required' => true,
             ])
@@ -44,8 +44,8 @@ class UserType extends AbstractType
                 'label' => 'Ville :',
                 'required' => true,
             ])
-            ->add('no_departement', IntegerType::class, [
-                'label' => 'Numéro de département :',
+            ->add('PourcentageSalaireVerse', IntegerType::class, [
+                'label' => 'Veuillez indiquer le pourcentage de CA que vous vous reversez (salaire) :',
                 'required' => true,
             ])
         ;

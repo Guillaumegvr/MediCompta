@@ -54,9 +54,14 @@ class RemplacementController extends AbstractController
     }
 
     #[Route("/liste", name: 'app_remplacement_liste', methods: ['GET'])]
-    public function list(RemplacementRepository $remplacementRepository): Response
+    public function list(RemplacementRepository $remplacementRepository, Security $security): Response
     {
-        $remplacements = $remplacementRepository->findRemplacementWithMedecin();
+        $userId = $security->getUser()->getId();
+
+        if (!$userId) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder aux données');
+        }
+        $remplacements = $remplacementRepository->findRemplacementsWithMedecinByUser($userId);
         return $this->render('remplacement/list.html.twig', [
             'remplacements' => $remplacements,
         ]);

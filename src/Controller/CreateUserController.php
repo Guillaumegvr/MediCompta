@@ -32,7 +32,7 @@ class CreateUserController extends AbstractController
 
 
             $this -> addFlash("success", 'Utilisateur ajouté avec succès');
-            return $this->redirectToRoute('app_main_home');
+            return $this->redirectToRoute('app_login_index');
         }
 
         return $this->render('create_user/createUser.html.twig', [

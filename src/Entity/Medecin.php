@@ -22,7 +22,7 @@ class Medecin
     #[Assert\Length(min: 2,
         max: 50,
         minMessage: "Le nom doit comporter au minimum 2 caractères.",
-        maxMessage: "Le nom ne peut excéder 50 caractères."
+        maxMessage: "Le nom ne peut pas excéder 50 caractères."
     )]
     private ?string $nom = null;
 
@@ -31,7 +31,7 @@ class Medecin
     #[Assert\Length(min: 2,
         max: 50,
         minMessage: "Le prénom doit comporter au moins 2 caractères.",
-        maxMessage: "Le prénom ne peut excéder 50 caractères."
+        maxMessage: "Le prénom ne peut pas excéder 50 caractères."
     )]
     private ?string $prenom = null;
 
@@ -43,7 +43,7 @@ class Medecin
     )]
     private ?string $adresse = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(length: 5, nullable: true)]
     #[Assert\Length(min: 5,
         max: 5,
         minMessage: "Le code postal doit faire 5 caractères",
@@ -77,7 +77,7 @@ class Medecin
         minMessage: "Le numéro de téléphone doit être composé de 10 chiffres",
         maxMessage:  "Le numéro de téléphone doit être composé de 10 chiffres"
     )]
-    private ?int $numeroTel = null;
+    private ?int $numeroTelephone = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(min: 2,
@@ -106,7 +106,6 @@ class Medecin
         minMessage: "Veuillez compléter avec un chiffre compris entre 0 et 100",
         maxMessage: "Veuillez compléter avec un chiffre compris entre 0 et 100"
     )]
-
     private ?int $retrocession = null;
 
     public function __construct()
@@ -191,14 +190,14 @@ class Medecin
         return $this;
     }
 
-    public function getNumeroTel(): ?int
+    public function getNumeroTelephone(): ?int
     {
-        return $this->numeroTel;
+        return $this->numeroTelephone;
     }
 
-    public function setNumeroTel(?int $numeroTel): static
+    public function setNumeroTelephone(?int $numeroTelephone): static
     {
-        $this->numeroTel = $numeroTel;
+        $this->numeroTelephone = $numeroTelephone;
 
         return $this;
     }
@@ -215,7 +214,7 @@ class Medecin
         return $this;
     }
 
-    public function isSecretaire(): ?bool
+    public function hasSecretaire(): ?bool
     {
         return $this->secretaire;
     }
